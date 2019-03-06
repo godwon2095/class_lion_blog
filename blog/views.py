@@ -2,11 +2,16 @@ from django.shortcuts import render, redirect
 from .models import Blog
 from .forms import BlogForm
 from django.utils import timezone
+from django.core.paginator import Paginator
 
 def home(request):
     blogs = Blog.objects.all()
+    paginator = Paginator(blogs, 3)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
     context = {
-        'blogs': blogs
+        'blogs': blogs,
+        'posts': posts
     }
     return render(request, 'home.html', context)
 
@@ -25,7 +30,7 @@ def create(request):
         blog.body = request.POST.get('body')
         blog.pub_date = timezone.datetime.now()
         blog.save()
-        return redirect('/show/' + str(blog.id))
+        return redirect('/blog/show/' + str(blog.id))
 
     
     return render(request, 'create.html')

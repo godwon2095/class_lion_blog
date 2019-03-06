@@ -30,6 +30,18 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'portfolio_list' %}">Portfolio</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'sign_up' %}">SignUp</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <form id="logout" method="POST" action="{% url 'logout' %}">
+                      {% csrf_token %}
+                      <input type="submit" value="LogOut">
+                    </form>                    
+                </li>
                 </ul>
             </div>
         </nav>
