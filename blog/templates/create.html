@@ -10,17 +10,11 @@
 {% block content %}
 <form method="POST">
     {% csrf_token %}
-    <div class="form-group">
-        <label for="title">title</label>
-        <input type="text" name="title" class="form-control" id="exampleInputTitle" aria-describedby="titleHelp" placeholder="Enter title">
-    </div><br>
-    <div class="form-group">
-        <label for="body">body</label>
-        <textarea name="body" class="form-control" rows="3"></textarea>
-    </div><br>
+    <table>
+        {{ form.as_table }}
+    </table><br>
 
     <input type="submit" value="create">
-
 </form>
 
 <!-- <script>

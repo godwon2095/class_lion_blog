@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Blog
 from .forms import BlogForm
 from django.utils import timezone
@@ -34,3 +34,16 @@ def create(request):
 
     
     return render(request, 'create.html')
+
+
+def blogpost(request):
+    if request.method == "POST":
+        form = BlogForm(request.POST or None)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.pub_date = timezone.now()
+            post.save()
+            return redirect('/blog/show/' + str(post.id))
+    else:
+        form = BlogForm()
+        return render(request, 'create.html', {'form': form})
